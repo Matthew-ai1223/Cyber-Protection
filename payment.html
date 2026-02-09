@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment - Cyber Protection Services</title>
+    <title>Payment - Cloud Image Hosting</title>
     <style>
         * {
             margin: 0;
@@ -15,9 +15,12 @@
         
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #1e3c72 100%);
+            background:
+                radial-gradient(circle at top left, rgba(56, 189, 248, 0.35), transparent 55%),
+                radial-gradient(circle at bottom right, rgba(129, 140, 248, 0.4), transparent 55%),
+                #020617;
             background-attachment: fixed;
-            color: #2d3748;
+            color: #e5e7eb;
             line-height: 1.7;
             min-height: 100vh;
             padding: 40px 20px;
@@ -30,9 +33,9 @@
         
         .back-link {
             display: inline-block;
-            color: white;
+            color: #e5e7eb;
             text-decoration: none;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             font-weight: 500;
             opacity: 0.9;
             transition: opacity 0.3s ease;
@@ -43,45 +46,46 @@
         }
         
         .payment-card {
-            background: white;
+            background: radial-gradient(circle at top left, rgba(148,163,184,0.24), transparent 55%), rgba(15,23,42,0.97);
             border-radius: 24px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-            padding: 50px;
+            box-shadow: 0 26px 80px rgba(15, 23, 42, 0.95);
+            padding: 40px 38px 36px;
             margin-bottom: 30px;
+            border: 1px solid rgba(148, 163, 184, 0.45);
         }
         
         .payment-header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 32px;
         }
         
         .payment-header h1 {
-            font-size: 2.5rem;
+            font-size: 2.3rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background: linear-gradient(135deg, #38bdf8 0%, #6366f1 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 10px;
-            letter-spacing: -1px;
+            margin-bottom: 8px;
+            letter-spacing: -0.04em;
         }
         
         .payment-header p {
-            color: #718096;
-            font-size: 1.1rem;
+            color: #cbd5f5;
+            font-size: 0.98rem;
         }
         
         .form-section {
-            margin-bottom: 40px;
+            margin-bottom: 32px;
         }
         
         .section-title {
-            font-size: 1.5rem;
+            font-size: 1.1rem;
             font-weight: 700;
-            color: #2d3748;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #e2e8f0;
+            color: #e5e7eb;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(51, 65, 85, 0.95);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -90,16 +94,16 @@
         .section-title::before {
             content: '';
             width: 4px;
-            height: 24px;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            border-radius: 2px;
+            height: 22px;
+            background: linear-gradient(135deg, #38bdf8 0%, #6366f1 100%);
+            border-radius: 999px;
         }
         
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 18px;
+            margin-bottom: 16px;
         }
         
         .form-group {
@@ -113,13 +117,13 @@
         
         label {
             font-weight: 600;
-            color: #2d3748;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
+            color: #e5e7eb;
+            margin-bottom: 7px;
+            font-size: 0.9rem;
         }
         
         .required {
-            color: #e53e3e;
+            color: #f97373;
         }
         
         input[type="text"],
@@ -130,34 +134,35 @@
         textarea,
         select {
             width: 100%;
-            padding: 14px 16px;
-            border: 2px solid #e2e8f0;
+            padding: 12px 14px;
             border-radius: 12px;
-            font-size: 1rem;
+            font-size: 0.96rem;
             font-family: 'Inter', sans-serif;
-            transition: all 0.3s ease;
-            background: #f7fafc;
+            transition: all 0.25s ease;
+            background: #020617;
+            color: #e5e7eb;
+            border: 1px solid rgba(148, 163, 184, 0.6);
         }
         
         input:focus,
         textarea:focus,
         select:focus {
             outline: none;
-            border-color: #2a5298;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+            border-color: #38bdf8;
+            box-shadow: 0 0 0 1px #38bdf8, 0 0 0 8px rgba(56, 189, 248, 0.18);
+            background: #020617;
         }
         
         textarea {
             resize: vertical;
-            min-height: 100px;
+            min-height: 96px;
         }
         
         .payment-options {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+            gap: 18px;
+            margin-top: 12px;
         }
         
         .payment-option {
@@ -174,101 +179,102 @@
         .payment-option-label {
             display: flex;
             align-items: center;
-            padding: 20px;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            background: #f7fafc;
-            transition: all 0.3s ease;
+            padding: 18px 16px;
+            border-radius: 16px;
+            background: #020617;
+            border: 1px solid rgba(148,163,184,0.7);
+            transition: all 0.25s ease;
             cursor: pointer;
         }
         
         .payment-option input[type="radio"]:checked + .payment-option-label {
-            border-color: #2a5298;
-            background: linear-gradient(135deg, rgba(30, 60, 114, 0.05) 0%, rgba(42, 82, 152, 0.05) 100%);
-            box-shadow: 0 4px 15px rgba(42, 82, 152, 0.2);
+            border-color: #38bdf8;
+            box-shadow: 0 18px 40px rgba(37, 99, 235, 0.75);
+            background: radial-gradient(circle at top left, rgba(56,189,248,0.22), transparent 55%), #020617;
         }
         
         .payment-option:hover .payment-option-label {
-            border-color: #2a5298;
+            border-color: #38bdf8;
             transform: translateY(-2px);
         }
         
         .payment-icon {
-            width: 50px;
-            height: 50px;
+            width: 46px;
+            height: 46px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            border-radius: 10px;
-            margin-right: 15px;
-            font-size: 1.5rem;
+            background: linear-gradient(135deg, #38bdf8 0%, #6366f1 100%);
+            border-radius: 12px;
+            margin-right: 14px;
+            font-size: 1.3rem;
             color: white;
             font-weight: bold;
         }
         
         .payment-name {
             font-weight: 600;
-            color: #2d3748;
-            font-size: 1.1rem;
+            color: #e5e7eb;
+            font-size: 0.98rem;
         }
         
         .btn-container {
-            margin-top: 40px;
+            margin-top: 32px;
             display: flex;
-            gap: 20px;
+            gap: 16px;
             justify-content: flex-end;
         }
         
         .btn {
-            padding: 16px 40px;
+            padding: 13px 32px;
             border: none;
-            border-radius: 12px;
-            font-size: 1rem;
+            border-radius: 999px;
+            font-size: 0.96rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             text-decoration: none;
             display: inline-block;
             text-align: center;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.02em;
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background: linear-gradient(135deg, #38bdf8 0%, #6366f1 100%);
             color: white;
-            box-shadow: 0 4px 15px rgba(42, 82, 152, 0.4);
+            box-shadow: 0 16px 40px rgba(59, 130, 246, 0.85);
         }
         
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(42, 82, 152, 0.5);
+            box-shadow: 0 22px 55px rgba(59, 130, 246, 0.95);
         }
         
         .btn-secondary {
-            background: #e2e8f0;
-            color: #4a5568;
+            background: rgba(15,23,42,0.9);
+            color: #e5e7eb;
+            border: 1px solid rgba(148,163,184,0.7);
         }
         
         .btn-secondary:hover {
-            background: #cbd5e0;
+            background: rgba(15,23,42,1);
         }
         
         .error-message {
-            color: #e53e3e;
-            font-size: 0.875rem;
-            margin-top: 5px;
+            color: #f97373;
+            font-size: 0.8rem;
+            margin-top: 4px;
             display: none;
         }
         
         .form-group.error input,
         .form-group.error textarea,
         .form-group.error select {
-            border-color: #e53e3e;
+            border-color: #f97373;
         }
         
         input[type="url"]::placeholder {
-            color: #a0aec0;
+            color: #9ca3af;
             font-style: italic;
         }
         
@@ -277,12 +283,15 @@
         }
         
         @media (max-width: 768px) {
+            body {
+                padding: 24px 14px;
+            }
             .payment-card {
-                padding: 30px 20px;
+                padding: 26px 20px 24px;
             }
             
             .payment-header h1 {
-                font-size: 2rem;
+                font-size: 1.9rem;
             }
             
             .form-grid {
@@ -309,18 +318,18 @@
         
         <div class="payment-card">
             <div class="payment-header">
-                <h1>Complete Your Payment</h1>
-                <p>Please provide your company information and select a payment method</p>
+                <h1>Complete Your Subscription</h1>
+                <p>Provide your details and select a payment method to start hosting your images in the cloud.</p>
             </div>
             
             <form id="paymentForm" action="#" method="POST">
-                <!-- Company Information Section -->
+                <!-- Billing Information Section -->
                 <div class="form-section">
-                    <h2 class="section-title">Company Information</h2>
+                    <h2 class="section-title">Billing Information</h2>
                     
                     <div class="form-grid">
                         <div class="form-group">
-                            <label for="companyName">Company Name <span class="required">*</span></label>
+                                <label for="companyName">Account or Company Name <span class="required">*</span></label>
                             <input type="text" id="companyName" name="companyName" required>
                             <span class="error-message">Company name is required</span>
                         </div>
@@ -402,15 +411,15 @@
                     </div>
                 </div>
                 
-                <!-- Website Information Section -->
+                <!-- Image Usage Information Section -->
                 <div class="form-section">
-                    <h2 class="section-title">Website Information</h2>
+                    <h2 class="section-title">Image Usage Information</h2>
                     
                     <div class="form-grid">
                         <div class="form-group full-width">
-                            <label for="websiteUrl">Website URL to Protect <span class="required">*</span></label>
-                            <input type="url" id="websiteUrl" name="websiteUrl" placeholder="https://example.com" required>
-                            <span class="error-message">Please enter a valid website URL (e.g., https://example.com)</span>
+                            <label for="websiteUrl">Website or App URL for Image Integration <span class="required">*</span></label>
+                            <input type="url" id="websiteUrl" name="websiteUrl" placeholder="https://your-app-or-store.com" required>
+                            <span class="error-message">Please enter a valid URL where you will use hosted images (e.g., https://your-app-or-store.com)</span>
                         </div>
                     </div>
                 </div>

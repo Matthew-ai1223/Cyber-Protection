@@ -3,183 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyber Protection Services</title>
+    <title>Cloud Image Storage Plans</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #2a5298 0%, #2a5298 50%, #2a5298 100%);
+            background:
+                radial-gradient(circle at top left, rgba(102, 126, 234, 0.4), transparent 55%),
+                radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.35), transparent 55%),
+                #020617;
             background-attachment: fixed;
-            color: #2d3748;
+            color: #e2e8f0;
             line-height: 1.7;
             min-height: 100vh;
         }
         
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 32px 20px 40px;
         }
         
         header {
             text-align: center;
-            padding: 60px 0 80px;
-            color: white;
+            padding: 72px 0 60px;
         }
         
         h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            letter-spacing: -1px;
+            color: #f9fafb;
+            margin-bottom: 16px;
+            font-size: 2.6rem;
+            letter-spacing: -0.04em;
         }
         
         .subtitle {
-            color: rgba(255, 255, 255, 0.95);
-            font-size: 1.4rem;
-            font-weight: 400;
-            margin-bottom: 40px;
-            max-width: 700px;
+            color: #cbd5f5;
+            font-size: 1.05rem;
+            margin-bottom: 32px;
+            max-width: 640px;
             margin-left: auto;
             margin-right: auto;
         }
         
         .plans-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 40px;
-            margin-bottom: 80px;
-            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            align-items: stretch;
+            gap: 28px;
+            margin-bottom: 56px;
         }
         
         .plan-card {
-            background: white;
+            background: radial-gradient(circle at top left, rgba(148, 163, 184, 0.22), transparent 55%), rgba(15, 23, 42, 0.98);
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-            padding: 40px 35px;
-            width: 100%;
-            max-width: 380px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 60px rgba(15, 23, 42, 0.7);
+            padding: 26px 22px 24px;
+            border: 1px solid rgba(148, 163, 184, 0.35);
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
         
-        .plan-card::before {
+        .plan-card::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, #667eea 0%, #2a5298 100%);
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
+            inset: 0;
+            background: radial-gradient(circle at top center, rgba(56, 189, 248, 0.12), transparent 55%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
         }
         
-        .plan-card:hover::before {
-            transform: scaleX(1);
+        .plan-card:hover::after {
+            opacity: 1;
         }
         
         .plan-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
+            transform: translateY(-10px);
+            box-shadow: 0 26px 80px rgba(15, 23, 42, 0.9);
+            border-color: rgba(56, 189, 248, 0.6);
         }
         
+        .plan-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #9ca3af;
+        }
+
         .plan-duration {
-            font-size: 1.75rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #667eea 0%, #2a5298 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 25px;
-            letter-spacing: -0.5px;
+            color: #e5e7eb;
         }
         
         .plan-price {
-            margin-bottom: 25px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .price-comparison {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            width: 100%;
-        }
-        
-        .price-before {
-            font-size: 1.1rem;
-            color: #a0aec0;
-            text-decoration: line-through;
-            font-weight: 400;
-            opacity: 0.7;
-        }
-        
-        .price-after {
-            font-size: 2.8rem;
+            font-size: 2.2rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #667eea 0%, #2a5298 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -1px;
+            color: #e5e7eb;
         }
         
-        .payment-type {
+        .plan-price span {
+            font-size: 0.95rem;
+            color: #9ca3af;
+        }
+
+        .plan-note {
             font-size: 0.85rem;
-            color: #718096;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            padding: 8px 16px;
-            background: #f7fafc;
-            border-radius: 30px;
-            display: inline-block;
+            color: #9ca3af;
+            margin-bottom: 4px;
         }
         
         .savings {
             display: inline-block;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            background: linear-gradient(135deg, #f97316, #f43f5e);
             color: white;
-            padding: 8px 18px;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
-            letter-spacing: 0.5px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            margin-bottom: 16px;
+            box-shadow: 0 10px 25px rgba(248, 113, 113, 0.4);
         }
         
         .plan-features {
             list-style: none;
-            margin-bottom: 35px;
-            padding: 0;
+            margin: 10px 0 18px;
+            flex: 1;
         }
         
         .plan-features li {
-            padding: 12px 0;
-            border-bottom: 1px solid #e2e8f0;
-            font-size: 0.95rem;
-            color: #4a5568;
-            transition: color 0.3s ease;
-        }
-        
-        .plan-features li:hover {
-            color: #667eea;
+            padding: 7px 0;
+            border-bottom: 1px solid rgba(55, 65, 81, 0.9);
+            font-size: 0.9rem;
+            color: #e5e7eb;
         }
         
         .plan-features li:last-child {
@@ -188,175 +153,73 @@
         
         .plan-features li::before {
             content: "✓";
-            color: #48bb78;
-            margin-right: 12px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            background: #f0fff4;
-            width: 24px;
-            height: 24px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            vertical-align: middle;
+            color: #4ade80;
+            margin-right: 10px;
+            font-weight: bold;
         }
         
         .btn {
             display: block;
             width: 100%;
-            padding: 16px 24px;
-            background: linear-gradient(135deg, #667eea 0%, #2a5298 100%);
+            padding: 11px 16px;
+            background: linear-gradient(135deg, #38bdf8, #6366f1);
             color: white;
             border: none;
-            border-radius: 12px;
-            font-size: 1rem;
+            border-radius: 999px;
+            font-size: 0.94rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
             text-align: center;
             text-decoration: none;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-            letter-spacing: 0.3px;
+            box-shadow: 0 12px 30px rgba(59, 130, 246, 0.65);
         }
         
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
-        }
-        
-        .btn:active {
-            transform: translateY(0);
+            filter: brightness(1.05);
+            box-shadow: 0 16px 36px rgba(59, 130, 246, 0.85);
         }
         
         .popular {
             position: relative;
-            border: 3px solid transparent;
-            background: linear-gradient(white, white) padding-box,
-                        linear-gradient(135deg, #667eea 0%, #2a5298 100%) border-box;
-            transform: scale(1.05);
+            border: 1px solid rgba(56, 189, 248, 0.9);
+            transform: translateY(-4px);
         }
         
         .popular::before {
             content: "Most Popular";
             position: absolute;
-            top: -15px;
+            top: -12px;
             left: 50%;
             transform: translateX(-50%);
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            background: linear-gradient(135deg, #38bdf8, #6366f1);
             color: white;
-            padding: 8px 24px;
-            border-radius: 30px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
-            z-index: 10;
-        }
-        
-        @media (max-width: 768px) {
-            .popular {
-                transform: scale(1);
-            }
-        }
-        
-        .server-specs {
-            background: white;
-            border-radius: 24px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-            padding: 60px 50px;
-            margin-bottom: 60px;
-        }
-        
-        .specs-title {
-            color: #2d3748;
-            margin-bottom: 50px;
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            background: linear-gradient(135deg, #667eea 0%, #2a5298 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .specs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        
-        .spec-item {
-            display: flex;
-            align-items: flex-start;
-            padding: 25px;
-            border-radius: 16px;
-            transition: all 0.3s ease;
-            background: #f7fafc;
-        }
-        
-        .spec-item:hover {
-            background: white;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transform: translateY(-5px);
-        }
-        
-        .spec-icon {
-            margin-right: 20px;
-            font-size: 2rem;
-            flex-shrink: 0;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #667eea 0%, #2a5298 100%);
-            border-radius: 12px;
-            filter: grayscale(0);
-        }
-        
-        .spec-item h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #2d3748;
-            margin-bottom: 8px;
-            letter-spacing: -0.3px;
-        }
-        
-        .spec-item p {
-            color: #718096;
-            font-size: 0.95rem;
-            line-height: 1.6;
+            padding: 4px 14px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.7);
         }
         
         footer {
             text-align: center;
-            padding: 40px 20px;
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 0.95rem;
-            font-weight: 400;
+            padding: 24px 20px 32px;
+            color: #9ca3af;
+            font-size: 0.9rem;
         }
-        
+
         @media (max-width: 768px) {
+            header {
+                padding-top: 40px;
+            }
+
             h1 {
-                font-size: 2.5rem;
+                font-size: 2.1rem;
             }
-            
-            .subtitle {
-                font-size: 1.1rem;
-            }
-            
-            .plan-card {
-                max-width: 100%;
-            }
-            
-            .server-specs {
-                padding: 40px 25px;
-            }
-            
-            .specs-title {
-                font-size: 2rem;
+
+            .plans-container {
+                gap: 20px;
             }
         }
     </style>
@@ -364,152 +227,61 @@
 <body>
     <div class="container">
         <header>
-            <h1>Cyber Protection Services</h1>
-            <p class="subtitle">Advanced cybersecurity solutions with 24/7 threat monitoring</p>
+            <h1>Premium Cloud Image Hosting</h1>
+            <p class="subtitle">Store, optimize, and deliver your images from the cloud with 99.9% uptime.</p>
         </header>
         
         <section class="plans-container">
             <div class="plan-card">
-                <div class="plan-duration">Basic Protection</div>
-                <div class="plan-price">
-                    <div class="price-comparison">
-                        <div class="price-before">₦38,700.00</div>
-                        <div class="price-after">₦29,500.00</div>
-                    </div>
-                    <div class="payment-type">One-Time Payment</div>
-                </div>
+                <div class="plan-tag">For personal projects</div>
+                <div class="plan-duration">Starter (Yearly)</div>
+                <div class="plan-price">₦32,400<span>/year</span></div>
+                <p class="plan-note">Yearly billing; cancel at next renewal.</p>
                 <ul class="plan-features">
-                    <li>Data Protection & Encryption</li>
-                    <li>24/7 Security Monitoring</li>
-                    <li>Malware Detection & Removal</li>
-                    <li>Firewall Protection</li>
-                    <li>Security Incident Response</li>
+                    <li>20 GB secure image storage</li>
+                    <li>Unlimited uploads within fair use</li>
+                    <li>Automatic compression & basic resizing</li>
+                    <li>Direct share links for every image</li>
+                    <li>Email support during business hours</li>
                 </ul>
-                <a href="payment.html" class="btn">Get Protected</a>
+                <a href="payment.html" class="btn">Choose Starter</a>
             </div>
             
             <div class="plan-card popular">
-                <div class="plan-duration">Advanced Protection</div>
-                <div class="plan-price">
-                    <div class="price-comparison">
-                        <div class="price-before">₦75,500.00</div>
-                        <div class="price-after">₦54,500.00</div>
-                    </div>
-                    <div class="payment-type">One-Time Payment</div>
-                </div>
-                <div class="savings">Save ₦21,000.00</div>
+                <div class="plan-tag">Best for growing teams</div>
+                <div class="plan-duration">Growth (Yearly)</div>
+                <div class="plan-price">₦231,600<span>/year</span></div>
+                <p class="plan-note">Discounted yearly billing.</p>
                 <ul class="plan-features">
-                    <li>Advanced Threat Detection</li>
-                    <li>Hacking Attack Prevention</li>
-                    <li>Code Security Analysis</li>
-                    <li>Penetration Testing</li>
-                    <li>Security Training & Awareness</li>
-                    <li>Compliance Monitoring</li>
+                    <li>100 GB secure image storage</li>
+                    <li>Global CDN delivery for every image</li>
+                    <li>Custom image domains & SSL</li>
+                    <li>Advanced resizing & WebP / AVIF formats</li>
+                    <li>Team workspaces (up to 5 members)</li>
+                    <li>Priority email & chat support</li>
                 </ul>
-                <a href="payment.html" class="btn">Get Protected</a>
+                <a href="payment.html" class="btn">Choose Growth</a>
             </div>
             
             <div class="plan-card">
-                <div class="plan-duration">Enterprise Protection</div>
-                <div class="plan-price">
-                    <div class="price-comparison">
-                        <div class="price-before">₦192,000.00</div>
-                        <div class="price-after">₦134,000.00</div>
-                    </div>
-                    <div class="payment-type">One-Time Payment</div>
-                </div>
-                <div class="savings">Save ₦58,000.00</div>
+                <div class="plan-tag">For high‑traffic apps</div>
+                <div class="plan-duration">Scale (Yearly)</div>
+                <div class="plan-price">₦408,000<span>/year</span></div>
+                <p class="plan-note">Annual commitment with the best value.</p>
                 <ul class="plan-features">
-                    <li>Complete Security Suite</li>
-                    <li>AI-Powered Threat Intelligence</li>
-                    <li>Zero-Day Attack Protection</li>
-                    <li>Security Architecture Review</li>
-                    <li>Incident Response Team</li>
-                    <li>Security Audit & Reporting</li>
-                    <li>Custom Security Policies</li>
+                    <li>500 GB+ scalable image storage</li>
+                    <li>SLA‑backed global CDN performance</li>
+                    <li>Advanced access controls & audit logs</li>
+                    <li>Usage analytics and traffic insights</li>
+                    <li>Custom branding & white‑label viewer</li>
+                    <li>Dedicated onboarding & success manager</li>
                 </ul>
-                <a href="payment.html" class="btn">Get Protected</a>
-            </div>
-        </section>
-        
-        <section class="server-specs">
-            <h2 class="specs-title">Our Protection Services</h2>
-            <div class="specs-grid">
-                <div class="spec-item">
-                    <div class="spec-icon">🛡️</div>
-                    <div>
-                        <h3>Data Protection</h3>
-                        <p>Advanced encryption and backup solutions to secure your sensitive data</p>
-                    </div>
-                </div>
-                <div class="spec-item">
-                    <div class="spec-icon">🚫</div>
-                    <div>
-                        <h3>Hacking Attack Prevention</h3>
-                        <p>Real-time monitoring and blocking of malicious activities and intrusion attempts</p>
-                    </div>
-                </div>
-                <div class="spec-item">
-                    <div class="spec-icon">🔍</div>
-                    <div>
-                        <h3>Code Security Analysis</h3>
-                        <p>Automated vulnerability scanning and code review to identify security flaws</p>
-                    </div>
-                </div>
-                <div class="spec-item">
-                    <div class="spec-icon">🔐</div>
-                    <div>
-                        <h3>Access Control & Authentication</h3>
-                        <p>Multi-factor authentication and role-based access control systems</p>
-                    </div>
-                </div>
-                <div class="spec-item">
-                    <div class="spec-icon">📊</div>
-                    <div>
-                        <h3>Security Monitoring</h3>
-                        <p>24/7 network monitoring with AI-powered threat detection and alerting</p>
-                    </div>
-                </div>
-                <div class="spec-item">
-                    <div class="spec-icon">⚡</div>
-                    <div>
-                        <h3>Incident Response</h3>
-                        <p>Rapid response team for security breaches and emergency situations</p>
-                    </div>
-                </div>
-                <div class="spec-item">
-                    <div class="spec-icon">🎯</div>
-                    <div>
-                        <h3>Penetration Testing</h3>
-                        <p>Regular security assessments to identify vulnerabilities before attackers do</p>
-                    </div>
-                </div>
-                <div class="spec-item">
-                    <div class="spec-icon">📋</div>
-                    <div>
-                        <h3>Compliance Management</h3>
-                        <p>Ensure adherence to security standards and regulatory requirements</p>
-                    </div>
-                </div>
-                <div class="spec-item">
-                    <div class="spec-icon">🧠</div>
-                    <div>
-                        <h3>Security Training</h3>
-                        <p>Employee awareness programs and cybersecurity education</p>
-                    </div>
-                </div>
-                <div class="spec-item">
-                    <div class="spec-icon">🔧</div>
-                    <div>
-                        <h3>Security Architecture</h3>
-                        <p>Design and implementation of robust security infrastructure</p>
-                    </div>
-                </div>
+                <a href="payment.html" class="btn">Talk to Sales</a>
             </div>
         </section>
         
         <footer>
-            <p>&copy; 2025 Cyber Protection Services. All rights reserved.</p>
+            <p>&copy; 2025 Cloud Image Hosting. All rights reserved.</p>
         </footer>
     </div>
 </body>

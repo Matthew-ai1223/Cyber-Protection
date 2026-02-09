@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Image Hosting</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(102, 126, 234, 0.4), transparent 55%),
+                radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.35), transparent 55%),
+                #0f172a;
+            background-attachment: fixed;
+            color: #e2e8f0;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+        
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(18px);
+            background: linear-gradient(to right, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.85));
+            border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+        }
+        
+        .site-header-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+        
+        .site-logo {
+            font-weight: 800;
+            font-size: 1.1rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #e5e7eb;
+            text-decoration: none;
+        }
+        
+        .site-logo span {
+            color: #38bdf8;
+        }
+        
+        .site-nav {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .site-nav a {
+            padding: 8px 14px;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #cbd5f5;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        
+        .site-nav a:hover {
+            background: rgba(148, 163, 184, 0.18);
+            color: #ffffff;
+        }
+        
+        .site-nav a[aria-current="page"] {
+            background: linear-gradient(135deg, #38bdf8, #6366f1);
+            color: #0b1120;
+            box-shadow: 0 8px 22px rgba(99, 102, 241, 0.4);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 32px 20px 40px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 72px 0 80px;
+            color: white;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            letter-spacing: -1px;
+        }
+        
+        .subtitle {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .plans-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 80px;
+            padding: 0 20px;
+        }
+        
+        .plan-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            padding: 40px 35px;
+            width: 100%;
+            max-width: 380px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .plan-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea 0%, #2a5298 100%);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        
+        .plan-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .plan-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
+        }
+        
+        .plan-duration {
+            font-size: 1.75rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #2a5298 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 25px;
+            letter-spacing: -0.5px;
+        }
+        
+        .plan-price {
+            margin-bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .price-comparison {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+        
+        .price-before {
+            font-size: 1.1rem;
+            color: #a0aec0;
+            text-decoration: line-through;
+            font-weight: 400;
+            opacity: 0.7;
+        }
+        
+        .price-after {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #2a5298 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+        
+        .payment-type {
+            font-size: 0.85rem;
+            color: #718096;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 8px 16px;
+            background: #f7fafc;
+            border-radius: 30px;
+            display: inline-block;
+        }
+        
+        .savings {
+            display: inline-block;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
+            letter-spacing: 0.5px;
+        }
+        
+        .plan-features {
+            list-style: none;
+            margin-bottom: 35px;
+            padding: 0;
+        }
+        
+        .plan-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.95rem;
+            color: #4a5568;
+            transition: color 0.3s ease;
+        }
+        
+        .plan-features li:hover {
+            color: #667eea;
+        }
+        
+        .plan-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .plan-features li::before {
+            content: "✓";
+            color: #48bb78;
+            margin-right: 12px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            background: #f0fff4;
+            width: 24px;
+            height: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
+        
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #2a5298 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            letter-spacing: 0.3px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .popular {
+            position: relative;
+            border: 3px solid transparent;
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(135deg, #667eea 0%, #2a5298 100%) border-box;
+            transform: scale(1.05);
+        }
+        
+        .popular::before {
+            content: "Most Popular";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+            z-index: 10;
+        }
+        
+        @media (max-width: 768px) {
+            .popular {
+                transform: scale(1);
+            }
+        }
+        
+        .server-specs {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            padding: 60px 50px;
+            margin-bottom: 60px;
+        }
+        
+        .specs-title {
+            color: #2d3748;
+            margin-bottom: 50px;
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #667eea 0%, #2a5298 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .spec-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 25px;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            background: #f7fafc;
+        }
+        
+        .spec-item:hover {
+            background: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        .spec-icon {
+            margin-right: 20px;
+            font-size: 2rem;
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #2a5298 100%);
+            border-radius: 12px;
+            filter: grayscale(0);
+        }
+        
+        .spec-item h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+        
+        .spec-item p {
+            color: #718096;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+            font-weight: 400;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .plan-card {
+                max-width: 100%;
+            }
+            
+            .server-specs {
+                padding: 40px 25px;
+            }
+            
+            .specs-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="site-header-inner">
+            <a href="index.html" class="site-logo">Cloud<span>Image</span>Host</a>
+            <nav class="site-nav" aria-label="Main navigation">
+                <a href="index.html" aria-current="page">Home</a>
+                <a href="index_server.html">Subscription Plans</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <header>
+            <h1>Cloud Image Hosting</h1>
+            <p class="subtitle">Fast, secure cloud storage and delivery for all your images.</p>
+        </header>
+        
+        <section class="plans-container">
+            <div class="plan-card">
+                <div class="plan-duration">Starter Plan</div>
+                <div class="plan-price">
+                    <div class="price-comparison">
+                        <div class="price-before">₦38,700.00</div>
+                        <div class="price-after">₦29,500.00</div>
+                    </div>
+                    <div class="payment-type">Yearly Billing</div>
+                </div>
+                <ul class="plan-features">
+                    <li>50 GB secure cloud image storage</li>
+                    <li>Unlimited image uploads</li>
+                    <li>Automatic compression & optimization</li>
+                    <li>Direct share links for every image</li>
+                    <li>Basic usage analytics dashboard</li>
+                </ul>
+                <a href="payment.html" class="btn">Start Hosting</a>
+            </div>
+            
+            <div class="plan-card popular">
+                <div class="plan-duration">Pro Plan</div>
+                <div class="plan-price">
+                    <div class="price-comparison">
+                        <div class="price-before">₦75,500.00</div>
+                        <div class="price-after">₦54,500.00</div>
+                    </div>
+                    <div class="payment-type">Yearly Billing</div>
+                </div>
+                <div class="savings">Save ₦21,000.00</div>
+                <ul class="plan-features">
+                    <li>200 GB secure image storage</li>
+                    <li>Global CDN for ultra-fast delivery</li>
+                    <li>On-the-fly resizing & WebP/AVIF formats</li>
+                    <li>Custom domains for image URLs</li>
+                    <li>Priority email support</li>
+                    <li>Team workspace (up to 5 users)</li>
+                </ul>
+                <a href="payment.html" class="btn">Choose Pro</a>
+            </div>
+            
+            <div class="plan-card">
+                <div class="plan-duration">Business Plan</div>
+                <div class="plan-price">
+                    <div class="price-comparison">
+                        <div class="price-before">₦192,000.00</div>
+                        <div class="price-after">₦134,000.00</div>
+                    </div>
+                    <div class="payment-type">Yearly Billing</div>
+                </div>
+                <div class="savings">Save ₦58,000.00</div>
+                <ul class="plan-features">
+                    <li>1 TB or more scalable image storage</li>
+                    <li>SLA-backed global CDN performance</li>
+                    <li>Advanced access controls & permissions</li>
+                    <li>Webhooks & developer API access</li>
+                    <li>White-label image viewer & galleries</li>
+                    <li>Dedicated success manager</li>
+                    <li>Custom onboarding & migration support</li>
+                </ul>
+                <a href="payment.html" class="btn">Talk to Sales</a>
+            </div>
+        </section>
+        
+        <section class="server-specs">
+            <h2 class="specs-title">Why Host Your Images With Us</h2>
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <div class="spec-icon">🛡️</div>
+                    <div>
+                        <h3>Secure Storage</h3>
+                        <p>Redundant, encrypted storage keeps every image safe, even if a server fails.</p>
+                    </div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-icon">🚫</div>
+                    <div>
+                        <h3>Abuse & Hotlink Protection</h3>
+                        <p>Built‑in controls to limit hotlinking, protect bandwidth, and block abusive traffic.</p>
+                    </div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-icon">🔍</div>
+                    <div>
+                        <h3>Image Optimization</h3>
+                        <p>Automatic resizing and format conversion so your pages load lightning fast.</p>
+                    </div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-icon">🔐</div>
+                    <div>
+                        <h3>Access Control</h3>
+                        <p>Private, public, and expiring links so you control who can view or download.</p>
+                    </div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-icon">📊</div>
+                    <div>
+                        <h3>Analytics & Insights</h3>
+                        <p>Understand which images are viewed the most and where traffic comes from.</p>
+                    </div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-icon">⚡</div>
+                    <div>
+                        <h3>Global CDN</h3>
+                        <p>Deliver images from edge locations worldwide for low latency everywhere.</p>
+                    </div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-icon">🎯</div>
+                    <div>
+                        <h3>Developer‑First</h3>
+                        <p>Clean APIs and SDKs so you can integrate uploads in minutes, not days.</p>
+                    </div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-icon">📋</div>
+                    <div>
+                        <h3>Compliance Ready</h3>
+                        <p>Enterprise‑grade security practices ready for strict data and privacy policies.</p>
+                    </div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-icon">🧠</div>
+                    <div>
+                        <h3>Smart Workflows</h3>
+                        <p>Upload once and automatically generate the sizes and formats you need.</p>
+                    </div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-icon">🔧</div>
+                    <div>
+                        <h3>Built to Scale</h3>
+                        <p>From personal portfolios to large marketplaces, our platform grows with you.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <p>&copy; 2025 Cloud Image Hosting. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
